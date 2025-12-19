@@ -35,9 +35,15 @@ public class HashTable<E> implements Iterable<E>{
 				throw new NoSuchElementException();
 			}
 			
-			// Finish this and the iterator is done.
-			
-			return null;
+			E value = listIterator.next();
+
+	        // If end of this bucket’s list is reached, advance to next bucket
+	        if (!listIterator.hasNext()) {
+	            bucketIndex++;
+	            advanceToNextBucket();
+	        }
+
+	        return value;
 		}
 		
 		private void advanceToNextBucket() {
@@ -91,6 +97,20 @@ public class HashTable<E> implements Iterable<E>{
 	public void delete(E item) {
 		buckets[Math.abs(item.hashCode()) % buckets.length].delete(item);
 		keysStored--;
+	}
+	
+	public int length() {
+		return buckets.length;
+	}
+	
+	public String toString() {
+		StringBuilder strbld = new StringBuilder();
+		for(E item : this) {
+			strbld.append(item);
+			strbld.append('\n');
+		}
+		
+		return strbld.toString();
 	}
 	
 	

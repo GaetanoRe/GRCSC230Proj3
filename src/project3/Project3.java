@@ -22,6 +22,23 @@ public class Project3 {
 		System.out.println(intList);*/
 		
 		
+		// Simple test done on the hash table to see if it was inserting and deleting properly
+		/*HashTable<String> names = new HashTable<String>();
+		
+		names.insert("Jerry");
+		names.insert("Gerald");
+		names.insert("Patty");
+		
+		System.out.println(names);
+		System.out.println("The current table size is: " + names.length());
+		
+		names.delete("Jerry");
+		System.out.println(names);*/
+		
+		// Stress test on Hash table to see how many times it would resize
+		
+		
+		
 		
 	}
 
