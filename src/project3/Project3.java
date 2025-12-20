@@ -35,7 +35,21 @@ public class Project3 {
 		names.delete("Jerry");
 		System.out.println(names);*/
 		
-		// Stress test on Hash table to see how many times it would resize
+		// Stress test on Hash table to see if it would resize
+		/*HashTable<String> names2 = new HashTable<String>();
+		
+		names2.insert("Tom");
+		names2.insert("MOT");
+		names2.insert("Mary");
+		names2.insert("George");
+		names2.insert("Jackson");
+		names2.insert("Tommy Lee Jones");
+		
+		System.out.println(names2);*/
+		
+		// Now for the program
+		
+		
 		
 		
 		
