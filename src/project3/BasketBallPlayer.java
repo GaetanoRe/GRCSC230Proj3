@@ -10,6 +10,7 @@ public class BasketBallPlayer {
 	private String firstName; // The first name of the player
 	private String lastName; // The last name of the player
 	private int numPenalties; // The number of penalties this player has gotten.
+	private boolean disqualified;
 	
 	/**
 	 * parameterized constructor - this will create an object that represents a player, it takes a first
@@ -22,6 +23,7 @@ public class BasketBallPlayer {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.numPenalties = 1;
+		this.disqualified = false;
 	}
 	
 	/**
@@ -29,8 +31,11 @@ public class BasketBallPlayer {
 	 * exceed the limit
 	 */
 	public void givePenalty() {
-		if(numPenalties < 5) {
+		if(!disqualified()) {
 			numPenalties++;
+			if(disqualified()) {
+				System.out.println(firstName + " " + lastName + "Is now disqualified...");
+			}
 		}
 	}
 	
@@ -50,6 +55,10 @@ public class BasketBallPlayer {
 		return this.lastName;
 	}
 	
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
+	
 	/**
 	 * getNumPenalties method - this returns the number of penalties the player has accumulated.
 	 * @return
@@ -63,30 +72,34 @@ public class BasketBallPlayer {
 	 * @return
 	 */
 	public boolean disqualified() {
-		return numPenalties == 5;
+		return disqualified;
+	}
+	
+	public void setDisqualified(boolean is) {
+		disqualified = is;
 	}
 	
 	/**
 	 * hashCode method - returns a hash that was created utilizing the basketball player's last name 
-	 * and using the multiplicative hashing method
+	 * and using the multiplicative hashing method utilizing Horner's method
 	 */
 	@Override
 	public int hashCode() {
-		int result = 0;
 		int x = 53;
-		for(int i = lastName.length(); i > 0; i--) {
-			result += lastName.charAt(i) * Math.pow(x, i);
-		}
-		return Math.abs(result);
+	    int h = 0;
+
+	    for (int i = 0; i < lastName.length(); i++) {
+	        h = h * x + lastName.charAt(i);
+	    }
+	    return h;
 	}
 	
 	/**
 	 * hashCode2 method - this returns a hash that was created utilizing the mid-square hashing method.
-	 * @return
 	 */
 	public int hashCode2() {
 		int sum = 0;
-		for(int i = 0; i < lastName.length(); i++) {
+		for(int i = 0; i < lastName.length() - 1; i++) {
 			sum += lastName.charAt(i);
 		}
 		long squaredResult = (long) Math.pow(sum, 2);
@@ -98,6 +111,19 @@ public class BasketBallPlayer {
 		}
 		return Integer.parseInt(str.substring(mid-1, mid+1));
 	}
+	
+	@Override 
+	public boolean equals(Object o) {
+		if (this == o) return true; // If the object itself is the same exact object, return true
+	    if (o == null) return false; // If the object is null, return false
+	    if (o.getClass() != this.getClass()) return false; // If the class is different from the object, then return false.
+
+	    BasketBallPlayer other = (BasketBallPlayer) o; // cast the object as a basketball player
+
+	    return firstName.toLowerCase().equals(other.firstName.toLowerCase())
+	        && lastName.toLowerCase().equals(other.lastName.toLowerCase()); // return if both the first and last names match
+    }
+
 	
 	/**
 	 * toString method - this returns the player object as a string

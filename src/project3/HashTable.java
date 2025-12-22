@@ -124,6 +124,9 @@ public class HashTable<E> implements Iterable<E>{
 	public void insert(E item) {
 		int index = Math.abs(item.hashCode()) % buckets.length;
 		buckets[index].insert(item);
+		if(buckets[index].length() > 1) {
+			System.out.println("Collision has occured. Num Items here: " + buckets[index].length());
+		}
 		keysStored++;
 		if((float)keysStored/buckets.length > loadFactor) {
 			resizeTable();
